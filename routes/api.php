@@ -19,6 +19,12 @@ use App\Http\Controllers\Site\CursoController;
 //Usuarios
 Route::get('/usuarios', [UsuarioController::class, 'index']);
 Route::get('/usuario/{id}', [UsuarioController::class, 'getUser']);
+Route::post('usuario/create', [UsuarioController::class, 'create']);
+Route::delete('/usuario/{id}', [UsuarioController::class, 'destroy']);
+Route::put('/usuario/{id}', [UsuarioController::class, 'update']);
 
 //Cursos
 Route::get('/cursos', [CursoController::class, 'index']);
+Route::get('/curso/{id}', [CursoController::class, 'getCourse']);
+Route::post('/curso/create', [CursoController::class, 'create']);
+Route::put('/curso/{id}', [CursoController::class, 'update']);

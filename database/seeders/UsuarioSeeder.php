@@ -18,6 +18,7 @@ class UsuarioSeeder extends Seeder
     {
         Usuario::create([
             'nome' => 'Cristiano Ronaldo dos Santos Aveiro',
+            'perfil' => 'professor',
             'email' => 'usuario1@exemplo.com',
             'senha' => Hash::make('senha123'),
             'curso_inscrito' => Curso::where('titulo', 'Engenharia de Software')->first()->id,
@@ -30,6 +31,7 @@ class UsuarioSeeder extends Seeder
 
         Usuario::create([
             'nome' => 'Neymar da Silva Santos Júnior',
+            'perfil' => 'professor',
             'email' => 'usuario2@exemplo.com',
             'senha' => Hash::make('senha123'),
             'curso_inscrito' => Curso::where('titulo', 'Ciência da Computação')->first()->id,
@@ -42,6 +44,7 @@ class UsuarioSeeder extends Seeder
 
         Usuario::create([
             'nome' => 'Suphachai Saenpong',
+            'perfil' => 'professor',
             'email' => 'usuario3@exemplo.com',
             'senha' => Hash::make('senha123'),
             'curso_inscrito' => Curso::where('titulo', 'Sistemas de Informação')->first()->id,

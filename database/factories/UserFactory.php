@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Usuario; // Importe a model Usuario corretamente
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-class UserFactory extends Factory
+class UsuarioFactory extends Factory // Atualize o nome da classe para UsuarioFactory
 {
     /**
      * Define the model's default state.

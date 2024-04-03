@@ -15,7 +15,8 @@ class CreateUsuariosTable extends Migration
     {
         Schema::create('usuarios', function (Blueprint $table) {
             $table->id();
-            $table->string('nome')->unique()->nullable();
+            $table->string('nome')->unique();
+            $table->enum('perfil', ['administrador', 'professor', 'aluno'])->nullable();
             $table->string('email')->unique();
             $table->string('senha')->nullable();
             $table->unsignedBigInteger('curso_inscrito')->nullable();
