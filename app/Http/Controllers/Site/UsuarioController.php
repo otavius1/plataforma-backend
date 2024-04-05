@@ -5,64 +5,67 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Usuario;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UsuarioRequest;
+use App\Repositories\UsuarioRepository;
 
 class UsuarioController extends Controller
 {
+    protected $usuarioRepository;
+
+    public function __construct(UsuarioRepository $usuarioRepository)
+    {
+        $this->usuarioRepository = $usuarioRepository;
+    }
+
     public function index()
     {
-        $usuarios = Usuario::all();
+        $usuarios = $this->usuarioRepository->all();
         return response()->json($usuarios, 200, [], JSON_UNESCAPED_UNICODE);
     }
 
     public function getUser($id)
     {
-        $usuario = Usuario::findOrFail($id);
+        $usuario = $this->usuarioRepository->find($id);
         return response()->json($usuario, 200, [], JSON_UNESCAPED_UNICODE);
     }
 
     public function create(UsuarioRequest $request)
     {
-        $name = $request->input('nome');
-        $perfil = $request->input('perfil');
-        $email = $request->input('email');
-        $senha = $request->input('senha');
-        $curso_Inscrito = $request->input('curso_Inscrito');
-        $aulas_assistidas = $request->input('aulas_assistidas');
-        $data_nascimento = $request->input('data_nascimento');
-        $sexo = $request->input('sexo');
-        $matricula = $request->input('matricula');
-        $numero_contato = $request->input('numero_contato');
+        // Obtém os dados da requisição
+        $data = $request->all();
 
-        $user_exists = Usuario::where('matricula', $matricula)
-            ->orWhere('email', $email)
-            ->first();
+        // Criptografa a senha antes de salvar o usuário
+        $data['senha'] = Hash::make($request->input('senha'));
 
-        if ($user_exists) {
-            return response()->json(['message' => 'Usuário já existe'], 409, [], JSON_UNESCAPED_UNICODE);
-        }
+        // Cria o usuário
+        $usuario = $this->usuarioRepository->create($data);
 
-        $usuario = Usuario::create($request->all());
-
-        return response()->json(['message' => 'Usuário criado com sucesso', 'usuario' => $usuario], 201, [], JSON_UNESCAPED_UNICODE);
+        // Retorna a resposta
+        return response()->json(['message' => 'Usuário criado com sucesso', 'usuario' => $usuario], 201);
     }
 
     public function update(UsuarioRequest $request, $id)
     {
-        $usuario = Usuario::find($id);
+        // Obtém os dados da requisição
+        $data = $request->all();
 
-        $usuario->fill($request->all());
-        $usuario->save();
+        // Verifica se a senha foi fornecida na requisição e se precisa ser atualizada
+        if ($request->has('senha')) {
+            // Criptografa a nova senha antes de atualizar o usuário
+            $data['senha'] = Hash::make($request->input('senha'));
+        }
 
-        return response()->json(['message' => 'Usuario atualizado com sucesso', $usuario], 201, [], JSON_UNESCAPED_UNICODE);
+        // Atualiza o usuário
+        $usuario = $this->usuarioRepository->update($data, $id);
+
+        // Retorna a resposta
+        return response()->json(['message' => 'Usuário atualizado com sucesso', 'usuario' => $usuario], 200);
     }
 
     public function destroy($id)
     {
-        $usuario = Usuario::find($id);
-
-        $usuario->delete();
-
-        return response()->json(['message' => 'Usuário excluído com sucesso', 'usuario' => $usuario], 201, [], JSON_UNESCAPED_UNICODE);
+        $this->usuarioRepository->destroy($id);
+        return response()->json(['message' => 'Usuário deletado com sucesso'], 200);
     }
 }
