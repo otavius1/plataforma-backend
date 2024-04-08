@@ -28,4 +28,10 @@ class CursoRepository
         $curso->save();
         return $curso;
     }
+
+    public function destroy($id)
+    {
+        $curso = Curso::find($id);
+        $curso->delete();
+    }
 }

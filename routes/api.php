@@ -21,16 +21,18 @@ use App\Http\Controllers\Site\AulaController;
 Route::get('/usuarios', [UsuarioController::class, 'index']);
 Route::get('/usuario/{id}', [UsuarioController::class, 'getUser']);
 Route::post('usuario/create', [UsuarioController::class, 'create']);
-Route::delete('/usuario/{id}', [UsuarioController::class, 'destroy']);
 Route::put('/usuario/{id}', [UsuarioController::class, 'update']);
+Route::delete('/usuario/{id}', [UsuarioController::class, 'destroy']);
 
 //Cursos
 Route::get('/cursos', [CursoController::class, 'index']);
 Route::get('/curso/{id}', [CursoController::class, 'getCourse']);
 Route::post('/curso/create', [CursoController::class, 'create']);
 Route::put('/curso/{id}', [CursoController::class, 'update']);
+Route::delete('/curso/{id}', [CursoController::class, 'destroy']);
 
 //Aulas
 Route::get('/aulas', [AulaController::class, 'index']);
 Route::get('aula/{id}', [AulaController::class, 'getAula']);
 Route::post('aula/create', [AulaController::class, 'create']);
+Route::delete('aula/{id}', [AulaController::class, 'destroy']);

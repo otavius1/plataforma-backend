@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Aula;
 use App\Repositories\AulaRepository;
 
 class AulaController extends Controller
@@ -31,8 +30,15 @@ class AulaController extends Controller
     public function create(Request $request)
     {
         $data = $request->all();
-        
+
         $aula = $this->aulaRepository->create($data);
-        return response()->json($aula, 200, [], JSON_UNESCAPED_UNICODE);
+        return response()->json(['message' => 'Aula criada com sucesso', 'aula' => $aula], 200);
+    }
+
+    public function destroy($id)
+    {
+        $aula = $this->aulaRepository->find($id);
+        $aula->destroy($id);
+        return response()->json(['message' => 'Aula deletada com sucesso'], 200);
     }
 }

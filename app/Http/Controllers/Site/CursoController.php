@@ -40,4 +40,10 @@ class CursoController extends Controller
         return response()->json(['message' => 'Curso atualizado com sucesso', $curso], 201, [], JSON_UNESCAPED_UNICODE);
     }
     
+    public function destroy($id)
+    {
+        $curso = $this->cursoRepository->destroy($id);
+        return response()->json(['message' => 'Curso deletado com sucesso'], 201);
+
+    }
 }
