@@ -23,10 +23,10 @@ class UsuarioRepository
 
     public function update(array $data, $id)
     {
-        $Usuario = Usuario::findOrFail($id);
-        $Usuario->fill($data);
-        $Usuario->save();
-        return $Usuario;
+        $usuario = Usuario::findOrFail($id);
+        $usuario->fill($data);
+        $usuario->save();
+        return $usuario;
     }
 
     public function destroy($id)

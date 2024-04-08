@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Site\UsuarioController;
 use App\Http\Controllers\Site\CursoController;
+use App\Http\Controllers\Site\AulaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +29,8 @@ Route::get('/cursos', [CursoController::class, 'index']);
 Route::get('/curso/{id}', [CursoController::class, 'getCourse']);
 Route::post('/curso/create', [CursoController::class, 'create']);
 Route::put('/curso/{id}', [CursoController::class, 'update']);
+
+//Aulas
+Route::get('/aulas', [AulaController::class, 'index']);
+Route::get('aula/{id}', [AulaController::class, 'getAula']);
+Route::post('aula/create', [AulaController::class, 'create']);
