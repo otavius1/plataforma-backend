@@ -34,4 +34,10 @@ class AulaRepository
         $aula = Aula::findOrFail($id);
         $aula->delete();
     }
+
+    public function findTitulo($id)
+    {
+        $aula = Aula::findOrFail($id);
+        return $aula->titulo;
+    }
 }

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Site\UsuarioController;
 use App\Http\Controllers\Site\CursoController;
 use App\Http\Controllers\Site\AulaController;
+use App\Http\Controllers\Site\ComentarioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,3 +37,10 @@ Route::get('/aulas', [AulaController::class, 'index']);
 Route::get('aula/{id}', [AulaController::class, 'getAula']);
 Route::post('aula/create', [AulaController::class, 'create']);
 Route::delete('aula/{id}', [AulaController::class, 'destroy']);
+
+
+//Comentários
+Route::get('/comentarios', [ComentarioController::class, 'index']);
+Route::get('/comentarios/{aula_id}/{usuario_id}', [ComentarioController::class, 'getComentario']);
+Route::get('/comentarios-aula/{aula_id}', [ComentarioController::class, 'getComentarioPorAula']);
+Route::get('/comentarios-usuario/{usuario_id}', [ComentarioController::class, 'getComentarioPorUsuario']);

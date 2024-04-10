@@ -17,6 +17,8 @@ class CreateComentariosTable extends Migration
             $table->id();
             $table->unsignedBigInteger('usuario_id');
             $table->foreign('usuario_id')->references('id')->on('usuarios')->onDelete('cascade');
+            $table->unsignedBigInteger('aula_id');
+            $table->foreign('aula_id')->references('id')->on('aulas')->onDelete('cascade');
             $table->text('comentario');
             $table->timestamps();
         });
